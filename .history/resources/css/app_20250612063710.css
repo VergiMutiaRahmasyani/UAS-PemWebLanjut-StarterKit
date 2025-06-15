@@ -1,0 +1,18 @@
+```css
+/* Import Bootstrap from node_modules */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Import AdminLTE from public/assets */
+@import '../../public/assets/adminlte/css/adminlte.min.css';
+
+/* Optional: Tailwind CSS directives (only if using Tailwind) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Add any additional custom styles here */

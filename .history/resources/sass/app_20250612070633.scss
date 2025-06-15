@@ -1,0 +1,11 @@
+// Gunakan @use alih-alih @import
+@use 'variables' as *;
+@use 'bootstrap/scss/bootstrap' as *;
+
+// Impor AdminLTE (disesuaikan dengan path)
+@import '../../public/assets/adminlte/css/adminlte.min.css';
+
+// Gaya kustom
+body {
+     font-family: 'Instrument Sans', 'Inter', sans-serif;
+     }

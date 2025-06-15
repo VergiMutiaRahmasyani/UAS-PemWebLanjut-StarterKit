@@ -1,0 +1,8 @@
+/* Import Bootstrap dari node_modules */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Gaya kustom */
+     body {
+         font-family: 'Instrument Sans', 'Inter', sans-serif;
+     }
+    

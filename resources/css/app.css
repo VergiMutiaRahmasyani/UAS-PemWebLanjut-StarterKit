@@ -1,0 +1,9 @@
+/* resources/css/app.css */
+/* Import custom CSS */
+@import 'custom.css';
+@import 'components/buttons.css';
+@import 'components/forms.css';
+@import 'components/modals.css';
+
+/* Import Bootstrap */
+@import 'bootstrap/dist/css/bootstrap.min.css';
