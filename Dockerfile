@@ -31,22 +31,23 @@ WORKDIR /var/www
 # Copy project files
 COPY . .
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Create .env and install PHP dependencies
+RUN cp .env.example .env \
+ && composer install --no-dev --optimize-autoloader \
+ && php artisan key:generate \
+ && php artisan storage:link
 
-# Install Node dependencies and build Vite
+# Build Vite assets
 RUN npm install && npm run build
 
 # Set correct permissions
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage \
-    && chmod -R 755 /var/www/bootstrap/cache
+RUN chmod -R 777 storage bootstrap/cache
 
 # Copy Nginx config
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 80
+# Expose port
 EXPOSE 80
 
-# Start Nginx & PHP-FPM
+# Start services
 CMD service nginx start && php-fpm
