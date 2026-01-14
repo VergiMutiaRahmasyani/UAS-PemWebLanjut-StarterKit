@@ -32,7 +32,9 @@ WORKDIR /var/www
 COPY . .
 
 # Create .env and install PHP dependencies
-RUN echo "APP_NAME=Laravel" > .env \
+RUN mkdir -p database \
+ && touch database/database.sqlite \
+ && echo "APP_NAME=Laravel" > .env \
  && echo "APP_ENV=production" >> .env \
  && echo "APP_KEY=" >> .env \
  && echo "APP_DEBUG=false" >> .env \
@@ -42,8 +44,8 @@ RUN echo "APP_NAME=Laravel" > .env \
  && echo "DB_DATABASE=/var/www/database/database.sqlite" >> .env \
  && composer install --no-dev --optimize-autoloader \
  && php artisan key:generate \
+ && php artisan migrate --force \
  && php artisan storage:link
-
 
 # Build Vite assets
 RUN npm install && npm run build
