@@ -31,27 +31,23 @@ WORKDIR /var/www
 # Copy project files
 COPY . .
 
-# Create .env and install PHP dependencies
+# Create SQLite database & .env
 RUN mkdir -p database \
  && touch database/database.sqlite \
  && echo "APP_NAME=Laravel" > .env \
  && echo "APP_ENV=production" >> .env \
- && echo "APP_KEY=" >> .env \
  && echo "APP_DEBUG=false" >> .env \
  && echo "APP_URL=http://localhost" >> .env \
  && echo "LOG_CHANNEL=stack" >> .env \
  && echo "DB_CONNECTION=sqlite" >> .env \
  && echo "DB_DATABASE=/var/www/database/database.sqlite" >> .env \
- && composer install --no-dev --optimize-autoloader \
- && php artisan key:generate \
- && php artisan migrate --force \
- && php artisan storage:link
+ && composer install --no-dev --optimize-autoloader
 
 # Build Vite assets
 RUN npm install && npm run build
 
-# Set correct permissions
-RUN chmod -R 777 storage bootstrap/cache
+# Set permissions
+RUN chmod -R 777 storage bootstrap/cache database
 
 # Copy Nginx config
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -59,5 +55,9 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Expose port
 EXPOSE 80
 
-# Start services
-CMD service nginx start && php-fpm
+# Run Laravel setup + start services
+CMD php artisan key:generate \
+ && php artisan migrate --force \
+ && php artisan storage:link \
+ && service nginx start \
+ && php-fpm
