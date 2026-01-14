@@ -44,8 +44,10 @@ class RolePermissionSeeder extends Seeder
         $editorPermissions = [
             'create berita',
             'edit berita',
+            'delete berita',
             'publish berita',
-            'unpublish berita'
+            'unpublish berita',
+            'manage users'
         ];
         $editorRole->syncPermissions($editorPermissions);
 

@@ -97,6 +97,8 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         try {
+            \Log::info('Memvalidasi input', $request->all());
+            
             // Validasi input
             $validated = $request->validate([
                 'judul' => 'required|string|max:255',
@@ -104,6 +106,8 @@ class BeritaController extends Controller
                 'kategori_id' => 'required|exists:kategoris,id',
                 'gambar' => 'required|image|max:2048|mimes:jpg,jpeg,png,gif',
             ]);
+            
+            \Log::info('Validasi berhasil', $validated);
 
             // Buat berita baru
             $berita = new Berita();
@@ -298,12 +302,6 @@ class BeritaController extends Controller
     public function approve(Berita $berita)
     {
         try {
-            // Pastikan hanya editor yang bisa menyetujui berita
-            if (!Auth::user()->hasRole('editor')) {
-                return redirect()->route('dashboard')
-                    ->with('error', 'Anda tidak memiliki izin untuk menyetujui berita.');
-            }
-
             // Pastikan berita dalam status menunggu atau draft
             if (!in_array($berita->status, [Berita::STATUS_PENDING, Berita::STATUS_DRAFT])) {
                 return redirect()->back()
@@ -360,11 +358,6 @@ class BeritaController extends Controller
     public function reject(Request $request, Berita $berita)
     {
         try {
-            if (!Auth::user()->hasRole('editor')) {
-                return redirect()->back()
-                    ->with('error', 'Anda tidak memiliki izin untuk menolak berita.');
-            }
-
             // Pastikan status berita adalah 'pending' sebelum ditolak
             if ($berita->status !== Berita::STATUS_PENDING) {
                 return redirect()->back()
@@ -426,10 +419,6 @@ class BeritaController extends Controller
      */
     public function menungguPersetujuan()
     {
-        if (!Auth::user()->hasRole('editor')) {
-            abort(403, 'Anda tidak memiliki izin untuk mengakses halaman ini.');
-        }
-
         $beritas = Berita::with(['kategori', 'user'])
             ->pending()
             ->latest()

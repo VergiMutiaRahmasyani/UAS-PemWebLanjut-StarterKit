@@ -27,6 +27,16 @@ class CheckRole
         
         // Check if user has the role
         if (!$user->hasRole($role)) {
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Unauthorized.'], 403);
+            }
+            
+            // Debug information
+            if (app()->environment('local')) {
+                $currentUrl = url()->current();
+                \Illuminate\Support\Facades\Log::info("Access denied for user {$user->id} to {$currentUrl}. Required role: {$role}");
+            }
+            
             return redirect()->route('dashboard')
                 ->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
         }

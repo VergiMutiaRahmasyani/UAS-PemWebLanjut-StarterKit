@@ -1,5 +1,7 @@
 <?php
 
+use JeroenNoten\LaravelAdminLte\AdminLteServiceProvider;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -149,7 +151,7 @@ return [
          */
         Spatie\Permission\PermissionServiceProvider::class,
         JeroenNoten\LaravelAdminLte\AdminLteServiceProvider::class,
-
+        
         /*
          * Application Service Providers...
          */

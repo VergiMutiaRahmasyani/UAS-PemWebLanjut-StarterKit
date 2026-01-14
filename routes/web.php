@@ -19,6 +19,31 @@ use Illuminate\Support\Str;
 |
 */
 
+// Test route untuk permission dan logging
+Route::get('/test-logging', function() {
+    // Coba tulis ke log dengan berbagai level
+    \Log::emergency('Ini adalah pesan EMERGENCY');
+    \Log::alert('Ini adalah pesan ALERT');
+    \Log::critical('Ini adalah pesan CRITICAL');
+    \Log::error('Ini adalah pesan ERROR');
+    \Log::warning('Ini adalah pesan WARNING');
+    \Log::notice('Ini adalah pesan NOTICE');
+    \Log::info('Ini adalah pesan INFO');
+    \Log::debug('Ini adalah pesan DEBUG');
+    
+    // Tulis ke file langsung untuk memastikan PHP bisa menulis
+    $testFile = storage_path('logs/test_permission.txt');
+    file_put_contents($testFile, 'Test write at ' . now()->toDateTimeString());
+    
+    return response()->json([
+        'log_file' => storage_path('logs/laravel.log'),
+        'log_writable' => is_writable(storage_path('logs/laravel.log')),
+        'test_file' => $testFile,
+        'test_file_written' => file_exists($testFile),
+        'php_user' => get_current_user(),
+    ]);
+});
+
 // Halaman utama
 Route::get('/', function () {
     return view('welcome');
