@@ -32,10 +32,18 @@ WORKDIR /var/www
 COPY . .
 
 # Create .env and install PHP dependencies
-RUN cp .env.example .env \
+RUN echo "APP_NAME=Laravel" > .env \
+ && echo "APP_ENV=production" >> .env \
+ && echo "APP_KEY=" >> .env \
+ && echo "APP_DEBUG=false" >> .env \
+ && echo "APP_URL=http://localhost" >> .env \
+ && echo "LOG_CHANNEL=stack" >> .env \
+ && echo "DB_CONNECTION=sqlite" >> .env \
+ && echo "DB_DATABASE=/var/www/database/database.sqlite" >> .env \
  && composer install --no-dev --optimize-autoloader \
  && php artisan key:generate \
  && php artisan storage:link
+
 
 # Build Vite assets
 RUN npm install && npm run build
