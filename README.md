@@ -1,8 +1,7 @@
-<img width="1199" height="548" alt="Screenshot (2507)" src="https://github.com/user-attachments/assets/8de50613-a7fd-4de6-9f89-ab46b6ba78a8" />
-
 # UAS Pemrograman Web Lanjut  
 ## Aplikasi Manajemen Berita Berbasis Web
  
+<img width="1199" height="548" alt="Screenshot (2507)" src="https://github.com/user-attachments/assets/8de50613-a7fd-4de6-9f89-ab46b6ba78a8" />
 
 ## 🗂️ Struktur Direktori Utama
 
