@@ -1,5 +1,11 @@
 <img width="1199" height="548" alt="Screenshot (2507)" src="https://github.com/user-attachments/assets/8de50613-a7fd-4de6-9f89-ab46b6ba78a8" />
 
+# UAS Pemrograman Web Lanjut  
+## Aplikasi Manajemen Berita Berbasis Web
+ 
+
+## 🗂️ Struktur Direktori Utama
+
  📌 Deskripsi Proyek
 Proyek ini merupakan tugas **Ujian Akhir Semester (UAS)** pada mata kuliah **Pemrograman Web Lanjut**.  
 Aplikasi yang dibangun adalah **sistem manajemen berita berbasis web** menggunakan **framework Laravel** dan **Vite** sebagai build tool frontend.
